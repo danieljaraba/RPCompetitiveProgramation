@@ -21,9 +21,19 @@ namespace RPCompetitiveProgramation.Pages.Users
 
         public IList<User> User { get;set; }
 
-        public async Task OnGetAsync()
+        [BindProperty]
+        public string SearchUsername { get; set; }
+        [BindProperty]
+        public string SearchPassword { get; set; }
+        public async Task<IActionResult> OnGetAsync()
         {
-            User = await _context.User.ToListAsync();
+            var user = from m in _context.User select m;
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            var dbEntry = _context.User.FirstOrDefault(acc => acc.UserName == SearchUsername);
+            return RedirectToPage("Users/Index");
         }
     }
 }

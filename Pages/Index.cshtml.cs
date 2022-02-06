@@ -16,10 +16,15 @@ namespace RPCompetitiveProgramation.Pages
         {
             _logger = logger;
         }
-
+        
         public void OnGet()
         {
 
+        }
+
+        public void OnGetAsync()
+        {
+            var users = from u in _context.
         }
     }
 }
