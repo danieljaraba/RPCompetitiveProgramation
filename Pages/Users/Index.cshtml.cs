@@ -27,6 +27,11 @@ namespace RPCompetitiveProgramation.Pages.Users
         public string SearchPassword { get; set; }
         public async Task OnGetAsync()
         {
+            User = await _context.User.ToListAsync();
+        }
+
+        public async Task OnPostAsync()
+        {
             var TotalUsers = from m in _context.User
                              select m;
             var user = TotalUsers;
@@ -49,7 +54,7 @@ namespace RPCompetitiveProgramation.Pages.Users
             }
             else
             {
-                Response.Redirect("/Index2");
+                Response.Redirect("/Index");
             }
         }
     }

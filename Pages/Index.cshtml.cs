@@ -35,7 +35,7 @@ namespace RPCompetitiveProgramation.Pages
                 return Page();
             }
             var dbEntry = _context.User.FirstOrDefault(acc => acc.UserName == SearchUsername);
-            return RedirectToPage("/Users");
+            return RedirectToPage("Users/Index");
         }
     }
 }
