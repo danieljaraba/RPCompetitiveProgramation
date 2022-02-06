@@ -22,9 +22,11 @@ namespace RPCompetitiveProgramation.Pages
         }
         [BindProperty]
         [Required]
+        [Display(Name = "Username")]
         public string SearchUsername { get; set; }
         [BindProperty]
         [Required]
+        [Display(Name = "Password")]
         [DataType (DataType.Password)]
         public string SearchPassword { get; set; }
 
