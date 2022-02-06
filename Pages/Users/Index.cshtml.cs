@@ -34,6 +34,7 @@ namespace RPCompetitiveProgramation.Pages.Users
             {
                 user = TotalUsers.Where(s => s.UserName.Equals(SearchUsername));
             }
+            /*
             User = await user.ToListAsync();
             if (User.Count == 1)
             {
@@ -44,13 +45,14 @@ namespace RPCompetitiveProgramation.Pages.Users
                 }
                 else
                 {
-                    Response.Redirect("/Users");
+                    RedirectToPage("Users");
                 }
             }
             else
             {
-                Response.Redirect("/Index2");
+                Response.Redirect("./Index");
             }
+            */
         }
     }
 }

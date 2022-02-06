@@ -27,15 +27,12 @@ namespace RPCompetitiveProgramation.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             var user = from m in _context.User select m;
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+
             var dbEntry = _context.User.FirstOrDefault(acc => acc.UserName == SearchUsername);
-            return RedirectToPage("/Users");
+            return RedirectToPage("Users");
         }
     }
 }
