@@ -11,20 +11,31 @@ namespace RPCompetitiveProgramation.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-
-        public IndexModel(ILogger<IndexModel> logger)
+        RPCompetitiveProgramation.Data.RPCompetitiveProgramationContext _context;
+        public IndexModel(ILogger<IndexModel> logger, RPCompetitiveProgramation.Data.RPCompetitiveProgramationContext? context)
         {
             _logger = logger;
+            _context = context;
         }
-        
-        public void OnGet()
-        {
+        [BindProperty]
+        public string SearchUsername { get; set; }
+        [BindProperty]
+        public string SearchPassword { get; set; }
 
+        public IActionResult OnGet()
+        {
+            return Page();
         }
 
-        public void OnGetAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
-            var users = from u in _context.
+            var user = from m in _context.User select m;
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            var dbEntry = _context.User.FirstOrDefault(acc => acc.UserName == SearchUsername);
+            return RedirectToPage("/Users");
         }
     }
 }

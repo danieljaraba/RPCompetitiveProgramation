@@ -25,15 +25,32 @@ namespace RPCompetitiveProgramation.Pages.Users
         public string SearchUsername { get; set; }
         [BindProperty]
         public string SearchPassword { get; set; }
-        public async Task<IActionResult> OnGetAsync()
+        public async Task OnGetAsync()
         {
-            var user = from m in _context.User select m;
-            if (!ModelState.IsValid)
+            var TotalUsers = from m in _context.User
+                             select m;
+            var user = TotalUsers;
+            if (!string.IsNullOrEmpty(SearchUsername))
             {
-                return Page();
+                user = TotalUsers.Where(s => s.UserName.Equals(SearchUsername));
             }
-            var dbEntry = _context.User.FirstOrDefault(acc => acc.UserName == SearchUsername);
-            return RedirectToPage("Users/Index");
+            User = await user.ToListAsync();
+            if (User.Count == 1)
+            {
+                if (User.ElementAt(0).Password.Equals(SearchPassword) && !string.IsNullOrEmpty(SearchPassword))
+                {
+                    ViewData["Message"] = User.ElementAt(0).UserName;
+                    User = await TotalUsers.ToListAsync();
+                }
+                else
+                {
+                    Response.Redirect("/Users");
+                }
+            }
+            else
+            {
+                Response.Redirect("/Index2");
+            }
         }
     }
 }
