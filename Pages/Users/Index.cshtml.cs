@@ -27,32 +27,14 @@ namespace RPCompetitiveProgramation.Pages.Users
         public string SearchPassword { get; set; }
         public async Task OnGetAsync()
         {
-            var TotalUsers = from m in _context.User
-                             select m;
-            var user = TotalUsers;
-            if (!string.IsNullOrEmpty(SearchUsername))
-            {
-                user = TotalUsers.Where(s => s.UserName.Equals(SearchUsername));
-            }
-            /*
-            User = await user.ToListAsync();
-            if (User.Count == 1)
-            {
-                if (User.ElementAt(0).Password.Equals(SearchPassword) && !string.IsNullOrEmpty(SearchPassword))
-                {
-                    ViewData["Message"] = User.ElementAt(0).UserName;
-                    User = await TotalUsers.ToListAsync();
-                }
-                else
-                {
-                    RedirectToPage("Users");
-                }
-            }
-            else
-            {
-                Response.Redirect("./Index");
-            }
-            */
+
+            User = await _context.User.ToListAsync();
+        }
+
+        public async Task OnPostAsync()
+        {
+            
+
         }
     }
 }
